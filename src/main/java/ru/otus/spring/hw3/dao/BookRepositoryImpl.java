@@ -25,10 +25,8 @@ public class BookRepositoryImpl implements BookRepository {
 
     @Override
     public boolean update(Book book) {
-        return em.createQuery("update Book b set b.name = :name where b.id = :id")
-                .setParameter("id", book.getId())
-                .setParameter("name", book.getName())
-                .executeUpdate() > 0;
+        em.merge(book);
+        return true;
     }
 
     @Override

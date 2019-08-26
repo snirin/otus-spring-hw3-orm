@@ -23,10 +23,8 @@ public class GenreRepositoryImpl implements GenreRepository {
 
     @Override
     public boolean update(Genre genre) {
-        return em.createQuery("update Genre g set g.name = :name where g.id = :id")
-                .setParameter("id", genre.getId())
-                .setParameter("name", genre.getName())
-                .executeUpdate() > 0;
+        em.merge(genre);
+        return true;
     }
 
     @Override
