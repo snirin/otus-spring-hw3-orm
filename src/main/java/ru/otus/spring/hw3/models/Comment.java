@@ -1,8 +1,8 @@
 package ru.otus.spring.hw3.models;
 
-import java.util.Objects;
-
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -24,9 +24,12 @@ public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @ManyToOne
+
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "b_id")
     private Book book;
+
+    @Column(name = "text")
     private String text;
 
     @Override
@@ -36,25 +39,5 @@ public class Comment {
                 ", bookId=" + book.getId() +
                 ", text='" + text + '\'' +
                 '}';
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        Comment comment = (Comment) o;
-        return id == comment.id &&
-                ((book == comment.book) || (book != null && comment.book != null && book.getId() == comment.book.getId()))
-                &&
-                Objects.equals(text, comment.text);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, book == null ? null : book.getId(), text);
     }
 }

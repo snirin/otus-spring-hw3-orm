@@ -72,6 +72,6 @@ public class BookRepositoryImpl implements BookRepository {
 
     @Override
     public List<Book> getAll() {
-        return em.createQuery("select b from Book b", Book.class).getResultList();
+        return em.createQuery("select b from Book b join fetch b.author join fetch b.genre", Book.class).getResultList();
     }
 }

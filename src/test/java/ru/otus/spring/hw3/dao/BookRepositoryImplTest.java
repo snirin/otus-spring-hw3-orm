@@ -13,7 +13,6 @@ import ru.otus.spring.hw3.models.Author;
 import ru.otus.spring.hw3.models.Book;
 import ru.otus.spring.hw3.models.Genre;
 
-import static java.util.Collections.emptyList;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
@@ -60,20 +59,20 @@ public class BookRepositoryImplTest {
         genre2 = new Genre(0, GENRE_2);
         genreRepository.insert(genre2);
 
-        book = new Book(0, BOOK_1, author1, genre1, emptyList());
+        book = new Book(0, BOOK_1, author1, genre1);
         bookId1 = bookRepository.insert(book);
     }
 
     @Test
     public void insert() {
-        Book expected = new Book(bookId1, BOOK_1, author1, genre1, emptyList());
+        Book expected = new Book(bookId1, BOOK_1, author1, genre1);
         Book result = bookRepository.getById(bookId1);
         assertEquals(expected, result);
     }
 
     @Test
     public void update() {
-        Book book = new Book(bookId1, BOOK_2, author2, genre2, emptyList());
+        Book book = new Book(bookId1, BOOK_2, author2, genre2);
         bookRepository.update(book);
         Book result = bookRepository.getById(bookId1);
         assertEquals(book, result);
@@ -82,7 +81,7 @@ public class BookRepositoryImplTest {
     @Test
     public void updateAuthor() {
         bookRepository.updateAuthor(book.getId(), author2.getId());
-        Book expected = new Book(bookId1, BOOK_1, author2, genre1, emptyList());
+        Book expected = new Book(bookId1, BOOK_1, author2, genre1);
         Book result = bookRepository.getById(bookId1);
         assertEquals(expected, result);
     }
@@ -90,7 +89,7 @@ public class BookRepositoryImplTest {
     @Test
     public void updateGenre() {
         bookRepository.updateGenre(book.getId(), genre2.getId());
-        Book expected = new Book(bookId1, BOOK_1, author1, genre2, emptyList());
+        Book expected = new Book(bookId1, BOOK_1, author1, genre2);
         Book result = bookRepository.getById(bookId1);
         assertEquals(expected, result);
     }

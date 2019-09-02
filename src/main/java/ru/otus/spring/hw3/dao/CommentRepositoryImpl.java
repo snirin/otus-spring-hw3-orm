@@ -7,6 +7,7 @@ import javax.persistence.PersistenceContext;
 
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+import ru.otus.spring.hw3.models.Book;
 import ru.otus.spring.hw3.models.Comment;
 
 @Repository
@@ -44,6 +45,13 @@ public class CommentRepositoryImpl implements CommentRepository {
     @Override
     public Comment getById(int id) {
         return em.find(Comment.class, id);
+    }
+
+    @Override
+    public List<Comment> getByBook(int bookId) {
+        return em.createQuery("select c from Comment c where c.book = :book", Comment.class)
+                .setParameter("book", new Book().withId(bookId))
+                .getResultList();
     }
 
     @Override

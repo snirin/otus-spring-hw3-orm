@@ -14,7 +14,6 @@ import ru.otus.spring.hw3.models.Book;
 import ru.otus.spring.hw3.models.Comment;
 import ru.otus.spring.hw3.models.Genre;
 
-import static java.util.Collections.emptyList;
 import static junit.framework.TestCase.assertFalse;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -59,7 +58,7 @@ public class CommentRepositoryImplTest {
         genre1 = new Genre(0, GENRE_1);
         genreRepository.insert(genre1);
 
-        book = new Book(0, BOOK_1, author1, genre1, emptyList());
+        book = new Book(0, BOOK_1, author1, genre1);
         bookId1 = bookRepository.insert(book);
 
         comment = new Comment(0, book, COMMENT_1);

@@ -106,12 +106,12 @@ public class ShellCommands {
      */
     @ShellMethod(value = "Book:Insert", key = {"bi"})
     public int bookInsert(@ShellOption String name, @ShellOption int authorId, @ShellOption int genreId) {
-        return bookRepository.insert(new Book(0, name, new Author(authorId, ""), new Genre(genreId, ""), null));
+        return bookRepository.insert(new Book(0, name, new Author(authorId, ""), new Genre(genreId, "")));
     }
 
     @ShellMethod(value = "Book:Update", key = {"bu"})
     public boolean bookUpdate(@ShellOption int id, @ShellOption String name, @ShellOption int authorId, @ShellOption int genreId) {
-        return bookRepository.update(new Book(id, name, new Author(authorId, ""), new Genre(genreId, ""), null));
+        return bookRepository.update(new Book(id, name, new Author(authorId, ""), new Genre(genreId, "")));
     }
 
     @ShellMethod(value = "Book:UpdateName", key = {"bun"})
@@ -157,7 +157,7 @@ public class ShellCommands {
      */
     @ShellMethod(value = "Comment:Insert", key = {"ci"})
     public int commentInsert(@ShellOption int bookId, @ShellOption String text) {
-        return commentRepository.insert(new Comment(0, new Book(bookId), text));
+        return commentRepository.insert(new Comment(0, new Book().withId(bookId), text));
     }
 
     @ShellMethod(value = "Comment:Update", key = {"cu"})
@@ -178,6 +178,11 @@ public class ShellCommands {
     @ShellMethod(value = "Comment:GetAll", key = {"cga"})
     public String commentGet() {
         return commentRepository.getAll().toString();
+    }
+
+    @ShellMethod(value = "Comment:GetByBook", key = {"cgb"})
+    public String commentGetByBook(@ShellOption int bookId) {
+        return commentRepository.getByBook(bookId).toString();
     }
 
     @ShellMethod(value = "Comment:Count", key = {"cc"})
