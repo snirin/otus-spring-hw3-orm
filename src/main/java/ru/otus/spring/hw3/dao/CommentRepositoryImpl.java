@@ -48,7 +48,7 @@ public class CommentRepositoryImpl implements CommentRepository {
     }
 
     @Override
-    public List<Comment> getByBook(int bookId) {
+    public List<Comment> getByBookId(int bookId) {
         return em.createQuery("select c from Comment c where c.book = :book", Comment.class)
                 .setParameter("book", new Book().withId(bookId))
                 .getResultList();

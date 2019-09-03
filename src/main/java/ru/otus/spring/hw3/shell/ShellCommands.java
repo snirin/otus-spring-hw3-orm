@@ -182,7 +182,7 @@ public class ShellCommands {
 
     @ShellMethod(value = "Comment:GetByBook", key = {"cgb"})
     public String commentGetByBook(@ShellOption int bookId) {
-        return commentRepository.getByBook(bookId).toString();
+        return commentRepository.getByBookId(bookId).toString();
     }
 
     @ShellMethod(value = "Comment:Count", key = {"cc"})

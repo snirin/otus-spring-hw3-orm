@@ -20,11 +20,10 @@ import static org.junit.Assert.assertTrue;
 @RunWith(SpringRunner.class)
 @Import(GenreRepositoryImpl.class)
 @DataJpaTest
-//@Transactional(propagation = Propagation.NOT_SUPPORTED)
 public class GenreRepositoryImplTest {
 
-    private static final String GENRE_2 = "Genre2";
     private static final String GENRE_1 = "Genre1";
+    private static final String GENRE_2 = "Genre2";
 
     @Autowired
     private TestEntityManager em;
@@ -52,9 +51,10 @@ public class GenreRepositoryImplTest {
     @Test
     public void deleteById() {
         int genreId = em.persistAndFlush(new Genre(0, GENRE_1)).getId();
-        assertNotNull(em.find(Genre.class, genreId));
+        Genre genre = em.find(Genre.class, genreId);
+        assertNotNull(genre);
+        em.detach(genre);
         genreRepository.deleteById(genreId);
-//        em.flush();
         assertNull(em.find(Genre.class, genreId));
     }
 
