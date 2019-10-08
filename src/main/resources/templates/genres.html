@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>List of all genres</title>
+    <style type="text/css">
+        body {
+            padding: 50px;
+        }
+
+        .genres, .genres td {
+            border: 1px solid lightgray;
+            padding: 5px;
+        }
+    </style>
+</head>
+<body>
+<br>
+<a href="/">Content</a>
+</br>
+
+<h1>Genres:</h1>
+
+<table class="genres">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="genre : ${genres}">
+        <td th:text="${genre.id}">1</td>
+        <td th:text="${genre.name}">John Doe</td>
+        <td>
+            <a th:href="@{/genre_edit(id=${genre.id})}" href="genre_edit.html">Edit</a>
+        </td>
+        <td>
+            <form action="#" th:action="@{/genres}" method="post">
+            <button type="submit" name="removeId" th:value="${genre.id}">remove</button>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<button name="addGenre" onclick="location.href='genre_edit?id=0'">Add</button>
+</body>
+</html>
