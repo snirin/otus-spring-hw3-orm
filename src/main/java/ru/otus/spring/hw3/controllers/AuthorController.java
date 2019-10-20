@@ -1,4 +1,4 @@
-package ru.otus.spring.hw3.rest;
+package ru.otus.spring.hw3.controllers;
 
 import java.util.List;
 
@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import ru.otus.spring.hw3.dao.AuthorRepository;
@@ -38,30 +39,17 @@ public class AuthorController {
     }
 
     @GetMapping(AUTHOR_EDIT)
-    public String editPage(@RequestParam("id") int id, Model model) {
-        Author author;
-        if (id == 0) {
-            author = new Author(0, "");
-        } else {
-            author = authorRepository.getById(id);
-        }
+    public String editAuthor(@RequestParam("id") int id, Model model) {
+        Author author = (id == 0) ? new Author(0, "") : authorRepository.getById(id);
         model.addAttribute("author", author);
         return AUTHOR_EDIT;
     }
 
     @PostMapping(AUTHOR_EDIT)
-    public String editAuthor(@RequestParam(value = "id", defaultValue = "0") int id, @RequestParam("name") String name, Model model) {
-        if (id == 0) {
-            Author author = new Author(id, name);
+    public String editAuthor(@ModelAttribute("author") Author author, Model model) {
+        if (author.getId() == 0) {
             authorRepository.insert(author);
         } else {
-            Author author = authorRepository.getById(id);
-
-            if (author == null) {
-                throw new NotFoundException();
-            }
-
-            author.setName(name);
             authorRepository.update(author);
         }
 

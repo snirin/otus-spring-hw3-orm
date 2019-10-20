@@ -1,4 +1,4 @@
-package ru.otus.spring.hw3.rest;
+package ru.otus.spring.hw3.controllers;
 
 import java.util.List;
 
@@ -46,13 +46,8 @@ public class BookController {
     }
 
     @GetMapping(BOOK_EDIT)
-    public String editPage(@RequestParam("id") int id, Model model) {
-        Book book;
-        if (id == 0) {
-            book = new Book(0, "", new Author(0), new Genre(0));
-        } else {
-            book = bookRepository.getById(id);
-        }
+    public String editBook(@RequestParam("id") int id, Model model) {
+        Book book = (id == 0) ? new Book(0, "", new Author(0), new Genre(0)) : bookRepository.getById(id);
         model.addAttribute("book", book);
         model.addAttribute("authors", authorRepository.getAll());
         model.addAttribute("genres", genreRepository.getAll());
