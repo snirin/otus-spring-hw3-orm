@@ -10,7 +10,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class LibraryApplication {
 
     public static void main(String[] args) throws SQLException {
-
         SpringApplication.run(LibraryApplication.class);
         Console.main(args);
     }
